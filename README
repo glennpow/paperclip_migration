@@ -1,0 +1,28 @@
+PaperclipMigration
+==================
+
+Allows you to add paperclip attachment columns to the database using one migration line.
+
+Example
+=======
+
+There are three methods to add the columns:
+
+  class AddPaperclip < ActiveRecord::Migration
+    def self.up
+      add_column :user, :image, :attachment  # 1
+      
+      create_table :photos do |t|
+        t.column :image, :attachment         # 2
+        t.attachment :picture                # 3
+      end
+    end
+
+    def self.down
+      remove_attachment_column :user, :image
+      drop_table :photos
+    end
+  end
+
+
+Copyright (c) 2009 Glenn Powell, released under the MIT license
